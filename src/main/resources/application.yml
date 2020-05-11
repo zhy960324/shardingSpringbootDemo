@@ -2,7 +2,7 @@ spring:
   shardingsphere:
     datasource:
       #  数据库名称，可自定义，可以为多个，以逗号隔开，每个在这里定义的库，都要在下面定义连接属性
-      names: ds2019,ds2020
+      names: ds2020,ds2019
       #年份为2019年的库
       ds2019:
         #  采用的数据库连接池，druid
@@ -69,7 +69,7 @@ spring:
         #需要进行分表的逻辑表名，用MyBatis或者MyBatis-Plus操作数据库时只需要操作逻辑表即可，xml文件也只需要配置逻辑表
         t_order:
           #实际的表结点,下面代表的是t_order_为开头的所有表，如果能确定表的范围例如按月份分表，这里的写法是ds$->{2019..2020}.t_order_&->{01..12}表示12个月的表
-          actual-data-nodes: ds$->{2019..2020}.t_order_
+          actual-data-nodes: ds$->{2019..2020}.t_order_$->{0..1}
           #分库策略，按照创建时间的年份分库，如果不用分库的，直接注释掉分库相关的代码
           database-strategy:
             standard:
